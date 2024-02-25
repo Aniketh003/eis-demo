@@ -1,0 +1,86 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+
+.table-container{
+  width: 100%;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.header-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.input-container{
+  display: flex;
+  gap: 10px;
+}
+
+.input-text{
+  width: 260px;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+}
+
+.input-date {
+  font-size: 1.2rem;
+  font-family: poppins;
+  display: block;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 1000px;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  text-align: center;
+}
+
+th{
+  background-color: #a4a4a4;
+}
+
+
+.store_container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.store-details{
+  width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.store-details .header{
+  font-size: 24px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.store-details h1{
+  text-align: center;
+}
+
+.store-details-2{
+  display: flex;
+  justify-content: space-between;
+}
+
+.batch-details{
+  display: flex;
+  justify-content: space-between;
+}
