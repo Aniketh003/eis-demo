@@ -93,7 +93,40 @@ button svg{
   margin-bottom: 10px;
 }
 
+.modal{
+  display: flex;
+  justify-content: center;
+  position:absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  background-color: rgba(0,0 , 0, 0.3);
+  padding: 30px;
+}
+
+.modal-background{
+  background-color: #fff;
+  width: 90%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 30px;
+  padding-top: 20px;
+}
+
+.modal-background .close-btn{
+  width: 100%;
+  display: flex;
+  padding-right: 30px;
+  align-items: end;
+  justify-content: end;
+}
+
 .modal-container{
+  width: 95%;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -121,9 +154,16 @@ button svg{
   color: white;
 }
 
+.action-btn{
+  font-size: 20px;
+  background-color: black;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: white;
+}
+
 .main-container .filter-container .filter-buttons{
   display: inline-block;
-  
 }
 
 .main-container .filter-container .filter-buttons button{
@@ -137,4 +177,9 @@ button svg{
 .main-container .filter-container .filter-buttons button.active{
   background-color: #000000;
   color: #ffffff;
+}
+
+.import-jobs Link{
+  display: block;
+  text-decoration: none;
 }

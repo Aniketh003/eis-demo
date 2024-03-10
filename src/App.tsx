@@ -1,15 +1,15 @@
-import { Route, Routes } from "react-router-dom";
+import { useContext } from "react";
 import "./App.css";
-import TableComponent from "./components/Table";
-import ModalComponent from "./components/ModalComponent";
+import HomeContainer from "./components/HomeContainer";
+import ModalContainer from "./components/ModalContainer";
+import { ModalContext } from "./context/ModalProvider";
 
 function App() {
+  const modalContext = useContext(ModalContext);
   return (
     <div className="main-container">
-      <Routes>
-        <Route path="/" element={<TableComponent/>}></Route>
-        <Route path="/batch-jobs/data/:batch_name" element={<ModalComponent/>}></Route>
-      </Routes>
+      <HomeContainer />
+      {modalContext?.modalOpen && <ModalContainer />}
     </div>
   );
 }

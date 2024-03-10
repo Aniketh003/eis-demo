@@ -1,18 +1,26 @@
-import { TableCell, TableRow,TableHead } from "@mui/material";
+import { TableCell, TableRow, TableHead } from "@mui/material";
 
 const TableHeadContainer = () => {
   return (
-    <div>
-      <TableHead>
-        <TableRow>
-          <TableCell align="left">Batch Name</TableCell>
-          <TableCell align="left">Date</TableCell>
-          <TableCell align="left">Execution Time</TableCell>
-          <TableCell align="left">Run Status</TableCell>
-          <TableCell align="left">Action</TableCell>
-        </TableRow>
-      </TableHead>
-    </div>
+    <TableHead>
+      <TableRow>
+        <TableCell align="left" sx={{ width: `${100 / 5}%`, height: "50px" }}>
+          Batch Name
+        </TableCell>
+        <TableCell align="left" sx={{ width: `${100 / 5}%` }}>
+          Date
+        </TableCell>
+        <TableCell align="left" sx={{ width: `${100 / 5}%` }}>
+          Execution Time
+        </TableCell>
+        <TableCell align="left" sx={{ width: `${100 / 5}%` }}>
+          Run Status
+        </TableCell>
+        <TableCell align="left" sx={{ width: `${100 / 5}%` }}>
+          Action
+        </TableCell>
+      </TableRow>
+    </TableHead>
   );
 };
 
