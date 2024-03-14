@@ -68,6 +68,14 @@ button {
   gap: 50px;
 }
 
+.batch-report-container .batch-report-row-button {
+  font-size: 14px;
+  background-color: black;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: white;
+}
+
 .batch-report-container .search-box input {
   padding: 6px 4px;
   font-size: 16px;
@@ -75,11 +83,11 @@ button {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
-.batch-report-container .search-box input:focus{
+.batch-report-container .search-box input:focus {
   outline: none;
 }
 
-.batch-report-container .empty-container{
+.batch-report-container .empty-container {
   display: flex;
   align-items: center;
   justify-content: center;
