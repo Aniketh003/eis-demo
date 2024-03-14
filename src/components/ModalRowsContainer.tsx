@@ -1,14 +1,7 @@
-import {
-  IconButton,
-  Popover,
-  TableCell,
-  TableRow,
-  Typography,
-} from "@mui/material";
+import { Popover, TableCell, TableRow, Typography } from "@mui/material";
 import CompleteBadge from "./CompleteBadge";
 import FailedBadge from "./FailedBadge";
 import { Batch } from "../model/JobModel";
-import RerunBtn from "./RerunBtn";
 import { useContext, useState } from "react";
 import { ModalContext } from "../context/ModalProvider";
 
@@ -17,7 +10,7 @@ interface TableRowContainerProps {
   modalOpenRequired: boolean;
 }
 
-function TableRowContainer({
+function ModalRowContainer({
   batch,
   modalOpenRequired,
 }: TableRowContainerProps) {
@@ -54,9 +47,26 @@ function TableRowContainer({
     }
   };
 
+  const getJobName = (jobName:string) => {
+    switch(jobName){
+      case "financeImportJob" : return "Finance Import Job"
+      case 'visionJob':return "Vision Job"
+      case "dmsStageJob":return "DMS Stage Job"
+      case "visionCmfNumberJob":return "Vision CMF Store Job"
+      case "eisDmsServerJob":return "Eis DMS Server Job"
+      case "storeUpdateJob":return "Store Update Job"
+      case "financeCorpImportJob":return "Finance Corp Import Job"
+      case "brandOemImportJob":return "Brand Oem Import Job"
+      case "biStageImportJob" : return "Bi Stage Import Job"
+      case "upSertEnterprisesJob" : return "UpSert Enterprises Job"
+      case "generateDepartmentsJob":return "Generate Departments Job"
+      case "generateStoresJob" : return "Generate Stores Job"
+    }
+  }
+
   return (
-    <TableRow onClick={openModalContainer} style={{cursor:"pointer"}}>
-      <TableCell align="left">{job_NAME}</TableCell>
+    <TableRow  style={{ cursor: "pointer" }}>
+      <TableCell  align="left">{getJobName(job_NAME)}</TableCell>
       <TableCell align="left">{start_Time.substring(0, 11)}</TableCell>
       <TableCell align="left">
         {start_Time && end_Time
@@ -68,18 +78,19 @@ function TableRowContainer({
       </TableCell>
       <TableCell align="left">
         <div className="action-buttons">
-          {(status === "FAILED" || status === "UNKNOWN") && <RerunBtn />}
-          {exit_Message && (
-            <IconButton
-              onClick={handlePopOverClick}
-              disableFocusRipple={true}
-              disableTouchRipple={true}
-              disableRipple={true}
-              className="action-btn"
-            >
-              view
-            </IconButton>
-          )}
+          <button
+            className={`action-btn ${status === "COMPLETED" && "disabled"}`}
+            disabled={status === "COMPLETED"}
+          >
+            rerun
+          </button>
+          <button
+            onClick={handlePopOverClick}
+            disabled={status === "COMPLETED"}
+            className={`action-btn ${status === "COMPLETED" && "disabled"}`}
+          >
+            reason
+          </button>
         </div>
       </TableCell>
       <Popover
@@ -113,4 +124,4 @@ function TableRowContainer({
   );
 }
 
-export default TableRowContainer;
+export default ModalRowContainer;

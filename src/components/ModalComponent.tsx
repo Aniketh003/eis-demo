@@ -8,8 +8,8 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import TableHeadContainer from "./TableHead";
 import { Batch } from "../model/JobModel";
-import TableRowContainer from "./TableRow";
 import { ModalContext } from "../context/ModalProvider";
+import ModalRowContainer from "./ModalRowsContainer";
 
 const ModalComponent = () => {
   const rowsPerPageOptions = [7, 15, 25];
@@ -90,15 +90,15 @@ const ModalComponent = () => {
   return (
     <div className="modal-container">
       <div className="filter-container">
+        <h2>
+          Result based on <b>{date}</b>
+        </h2>
         <input
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
         />
       </div>
-      <h2>
-        Result based on <b>{date}</b>
-      </h2>
       {dateData.length !== 0 ? (
         <div className="date-result">
           <TableContainer component={Paper} style={{ borderRadius: "8px" }}>
@@ -106,7 +106,7 @@ const ModalComponent = () => {
               <TableHeadContainer />
               <TableBody>
                 {dateData.map((e) => (
-                  <TableRowContainer batch={e} modalOpenRequired={false}/>
+                  <ModalRowContainer batch={e} modalOpenRequired={false}/>
                 ))}
               </TableBody>
             </Table>
@@ -115,8 +115,11 @@ const ModalComponent = () => {
       ) : (
         <p style={{ textAlign: "center" }}>No data Found</p>
       )}
-      <div className="main-contaier">
+      <div className="modal-contaier">
         <div className="filter-container">
+          <div className="past-container">
+            <p>Past {rowsPerPage} days</p>
+          </div>
           <div className="filter-buttons">
             <button
               className={focused === "all" ? "active" : ""}
@@ -146,7 +149,7 @@ const ModalComponent = () => {
                 page * rowsPerPage,
                 page * rowsPerPage + rowsPerPage
               ).map((e, index) => (
-                <TableRowContainer batch={e} key={index} modalOpenRequired={false}/>
+                <ModalRowContainer batch={e} key={index} modalOpenRequired={false}/>
               ))}
             </TableBody>
           </Table>

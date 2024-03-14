@@ -7,10 +7,10 @@ const ModalContainer = () => {
   const modalContext = useContext(ModalContext)
 
   return (
-    <div className="modal">
+    <div className={`${modalContext?.modalOpen && `open`} modal`}>
       <div className="modal-background">
         <div className="close-btn">
-          <button className="action-btn" onClick={modalContext?.closeModal}>close</button>
+          <button onClick={modalContext?.closeModal}>X</button>
         </div>
         <ModalComponent />
       </div>

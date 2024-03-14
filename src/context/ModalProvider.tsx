@@ -21,7 +21,6 @@ const ModalProvider:React.FC<modalProvider> = ({children}) => {
     const openModal = (batch_name:string) => {
         setModalOpen(true);
         setBatchName(batch_name);
-        console.log(modalOpen,batchName)
     }
 
     const closeModal = () => {

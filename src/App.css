@@ -2,14 +2,18 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: poppins;
 }
 
 body{
-  padding:40px 100px;
+  padding:30px 100px;
 }
 
 .table-container{
+  width: 100%;
+  min-height: auto;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   gap: 60px;
 }
@@ -36,16 +40,12 @@ h2{
   align-items: center;
   gap: 3px;
 }
+
  button{
   border: none;
   background-color: #fff;
   cursor: pointer;
   padding: 5px 10px;
-}
-
-button svg{
-  height: 30px;
-  width: 30px;
 }
 
 .success-badge{
@@ -64,6 +64,7 @@ button svg{
   background-color: green;
   border-radius: 50%;
 }
+
 .failed-badge{
   display: inline-flex;
   align-items: center;
@@ -93,49 +94,64 @@ button svg{
   margin-bottom: 10px;
 }
 
-.modal{
+.modal {
   display: flex;
+  align-items: center;
   justify-content: center;
-  position:absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: auto;
-  background-color: rgba(0,0 , 0, 0.3);
-  padding: 30px;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 25px;
 }
 
-.modal-background{
+::-webkit-scrollbar{
+  display: none;
+}
+
+.modal-background {
   background-color: #fff;
-  width: 90%;
+  width: 95%;
   border-radius: 10px;
+  height: 100%;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-bottom: 30px;
-  padding-top: 20px;
+  box-sizing: border-box;
 }
 
-.modal-background .close-btn{
+.modal-background .close-btn {
   width: 100%;
   display: flex;
   padding-right: 30px;
-  align-items: end;
-  justify-content: end;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
-.modal-container{
+.modal-background .close-btn button{
+  border: none;
+  background-color: #000000;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 8px;
+  font-size: 18px;
+}
+
+.modal-container {
   width: 95%;
+  height: 90%;
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
 
-.modal-container .filter-container{
+.modal-container .filter-container {
   display: flex;
-  align-items: end;
-  justify-content: end;
+  align-items: center;
   gap: 30px;
   padding: 20px 0;
 }
@@ -162,11 +178,17 @@ button svg{
   color: white;
 }
 
-.main-container .filter-container .filter-buttons{
+.action-buttons button.disabled{
+  background-color: rgb(234, 234, 234);
+  color: rgb(120, 120, 120);
+  cursor: default;
+}
+
+.modal-container .filter-container .filter-buttons{
   display: inline-block;
 }
 
-.main-container .filter-container .filter-buttons button{
+.modal-container .filter-container .filter-buttons button{
   display: inline-block;
   padding: 5px 8px;
   border: none;
@@ -174,12 +196,14 @@ button svg{
   border-radius: 5px;
 }
 
-.main-container .filter-container .filter-buttons button.active{
+.modal-container .filter-container .filter-buttons button.active{
   background-color: #000000;
   color: #ffffff;
 }
 
-.import-jobs Link{
-  display: block;
-  text-decoration: none;
+@media only screen and (max-width:600px){
+  body{
+    padding: 15px 20px;
+    font-size: small;
+  }
 }
