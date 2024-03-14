@@ -8,11 +8,13 @@ import { ModalContext } from "../context/ModalProvider";
 interface TableRowContainerProps {
   batch: Batch[];
   modalOpenRequired: boolean;
+  getEisJobCount: (jobName: string) => number;
 }
 
 function CoreRowContainer({
   batch,
   modalOpenRequired,
+  getEisJobCount,
 }: TableRowContainerProps) {
   const modalContext = useContext(ModalContext);
 
@@ -50,7 +52,7 @@ function CoreRowContainer({
     "Store Update Job",
     "Generate Stores Job",
     "Generate Departments Job",
-    "UpSert Enterprises Job"
+    "UpSert Enterprises Job",
   ];
 
   return (
@@ -62,23 +64,38 @@ function CoreRowContainer({
             jobName.toLowerCase().replace(/\s/g, "")
         );
         return (
-          <TableRow
-            onClick={() =>
-              openModalContainer(jobName.toLowerCase().replace(/\s/g, ""))
-            }
-            style={{ cursor: "pointer" }}
-            key={jobName}
-          >
-            <TableCell align="left">{jobName}</TableCell>
-            <TableCell align="left">
+          <TableRow style={{ cursor: "pointer" }} key={jobName}>
+            <TableCell
+              onClick={() =>
+                openModalContainer(jobName.toLowerCase().replace(/\s/g, ""))
+              }
+            >
+              <div className="job-name-count">
+                <p>{jobName}</p>
+                <span className="badge">{getEisJobCount(jobName)}</span>
+              </div>
+            </TableCell>
+            <TableCell
+              onClick={() =>
+                openModalContainer(jobName.toLowerCase().replace(/\s/g, ""))
+              }
+            >
               {jobData?.start_Time.substring(0, 11) || "-- --"}
             </TableCell>
-            <TableCell align="left">
+            <TableCell
+              onClick={() =>
+                openModalContainer(jobName.toLowerCase().replace(/\s/g, ""))
+              }
+            >
               {jobData?.start_Time && jobData?.end_Time
                 ? getExecutionTime(jobData?.start_Time, jobData?.end_Time)
                 : "-- --"}
             </TableCell>
-            <TableCell align="left">
+            <TableCell
+              onClick={() =>
+                openModalContainer(jobName.toLowerCase().replace(/\s/g, ""))
+              }
+            >
               {jobData ? (
                 jobData?.status === "COMPLETED" ? (
                   <CompleteBadge />
@@ -89,7 +106,7 @@ function CoreRowContainer({
                 "-- --"
               )}
             </TableCell>
-            <TableCell align="left">
+            <TableCell>
               {jobData ? (
                 <div className="action-buttons">
                   <button

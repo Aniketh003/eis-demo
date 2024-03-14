@@ -66,17 +66,17 @@ function ModalRowContainer({
 
   return (
     <TableRow  style={{ cursor: "pointer" }}>
-      <TableCell  align="left">{getJobName(job_NAME)}</TableCell>
-      <TableCell align="left">{start_Time.substring(0, 11)}</TableCell>
-      <TableCell align="left">
+      <TableCell>{getJobName(job_NAME)}</TableCell>
+      <TableCell>{start_Time.substring(0, 11)}</TableCell>
+      <TableCell>
         {start_Time && end_Time
           ? getExecutionTime(start_Time, end_Time)
           : "N/A"}
       </TableCell>
-      <TableCell align="left">
+      <TableCell>
         {status === "COMPLETED" ? <CompleteBadge /> : <FailedBadge />}
       </TableCell>
-      <TableCell align="left">
+      <TableCell>
         <div className="action-buttons">
           <button
             className={`action-btn ${status === "COMPLETED" && "disabled"}`}

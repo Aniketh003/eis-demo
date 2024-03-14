@@ -1,15 +1,11 @@
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   font-family: poppins;
 }
 
-body{
-  padding:30px 100px;
-}
-
-.table-container{
+.table-container {
   width: 100%;
   min-height: auto;
   display: flex;
@@ -18,37 +14,95 @@ body{
   gap: 60px;
 }
 
-.import-jobs{
+.import-jobs {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-h2{
+h2 {
   font-size: 20px;
   font-weight: 400;
 }
 
-.eis-core-jobs{
+.eis-core-jobs {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.action-buttons{
+.action-buttons {
   display: flex;
   align-items: center;
   gap: 3px;
 }
 
- button{
+button {
   border: none;
   background-color: #fff;
   cursor: pointer;
   padding: 5px 10px;
 }
 
-.success-badge{
+.main-container {
+  padding: 30px 80px;
+}
+
+.main-container .navbar {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.main-container .navbar button {
+  font-size: 18px;
+  padding: 12px 0;
+  color: rgb(136, 135, 135);
+  border-bottom: 2px solid white;
+}
+.batch-report-container {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.batch-report-container .search-box input {
+  padding: 6px 4px;
+  font-size: 16px;
+  border: 2px solid black;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.batch-report-container .search-box input:focus{
+  outline: none;
+}
+
+.batch-report-container .empty-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  width: 100%;
+}
+
+.batch-report-container .search-box button {
+  border: 2px solid rgb(49, 42, 42);
+  background-color: rgb(49, 42, 42);
+  font-size: 16px;
+  color: white;
+  padding: 6px 4px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.main-container .navbar button.active {
+  border-bottom: 2px solid black;
+  color: #000000;
+}
+
+.success-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -58,14 +112,14 @@ h2{
   gap: 5px;
 }
 
-.success-badge .dot{
+.success-badge .dot {
   height: 10px;
   width: 10px;
   background-color: green;
   border-radius: 50%;
 }
 
-.failed-badge{
+.failed-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -75,19 +129,19 @@ h2{
   gap: 5px;
 }
 
-.failed-badge .dot{
+.failed-badge .dot {
   height: 10px;
   width: 10px;
   background-color: red;
   border-radius: 50%;
 }
 
-.closeBtn button{
+.closeBtn button {
   background-color: rgb(35, 35, 35);
   color: #fff;
 }
 
-.closeBtn{
+.closeBtn {
   display: flex;
   align-items: end;
   justify-content: end;
@@ -98,16 +152,20 @@ h2{
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.3);
-  padding: 25px;
+  padding-top: 5px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-bottom: 25px;
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   display: none;
 }
 
@@ -124,15 +182,16 @@ h2{
   box-sizing: border-box;
 }
 
-.modal-background .close-btn {
+.modal .close-btn {
   width: 100%;
   display: flex;
   padding-right: 30px;
   align-items: flex-end;
   justify-content: flex-end;
+  padding: 6px;
 }
 
-.modal-background .close-btn button{
+.modal .close-btn button {
   border: none;
   background-color: #000000;
   color: white;
@@ -152,17 +211,37 @@ h2{
 .modal-container .filter-container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 30px;
   padding: 20px 0;
 }
 
-.modal-container .filter-container input{
+.modal-container .filter-container input {
   font-family: poppins;
-  padding:5px;
+  padding: 5px;
   font-size: 16px;
 }
 
-.action-buttons .action-btn{
+.job-name-count {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.job-name-count .badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(209, 208, 208);
+  padding: 0 6px;
+  text-align: center;
+  min-height: 20px;
+  font-size: 0.75rem;
+  min-width: 20px;
+  border-radius: 2rem;
+}
+
+.action-buttons .action-btn {
   font-size: 14px;
   background-color: black;
   border-radius: 5px;
@@ -170,7 +249,7 @@ h2{
   color: white;
 }
 
-.action-btn{
+.action-btn {
   font-size: 20px;
   background-color: black;
   border-radius: 5px;
@@ -178,17 +257,17 @@ h2{
   color: white;
 }
 
-.action-buttons button.disabled{
+.action-buttons button.disabled {
   background-color: rgb(234, 234, 234);
   color: rgb(120, 120, 120);
   cursor: default;
 }
 
-.modal-container .filter-container .filter-buttons{
+.modal-container .filter-container .filter-buttons {
   display: inline-block;
 }
 
-.modal-container .filter-container .filter-buttons button{
+.modal-container .filter-container .filter-buttons button {
   display: inline-block;
   padding: 5px 8px;
   border: none;
@@ -196,13 +275,13 @@ h2{
   border-radius: 5px;
 }
 
-.modal-container .filter-container .filter-buttons button.active{
+.modal-container .filter-container .filter-buttons button.active {
   background-color: #000000;
   color: #ffffff;
 }
 
-@media only screen and (max-width:600px){
-  body{
+@media only screen and (max-width: 600px) {
+  body {
     padding: 15px 20px;
     font-size: small;
   }

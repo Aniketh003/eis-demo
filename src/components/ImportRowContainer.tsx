@@ -8,11 +8,13 @@ import { ModalContext } from "../context/ModalProvider";
 interface TableRowContainerProps {
   batch: Batch[];
   modalOpenRequired: boolean;
+  getImportJobCount:(name:string) => number
 }
 
 function ImportRowContainer({
   batch,
   modalOpenRequired,
+  getImportJobCount,
 }: TableRowContainerProps) {
   const modalContext = useContext(ModalContext);
 
@@ -70,23 +72,25 @@ function ImportRowContainer({
               onClick={() =>
                 openModalContainer(jobName.toLowerCase().replace(/\s/g, ""))
               }
-              align="left"
             >
-              {jobName}
+              <div className="job-name-count">
+                <p>{jobName}</p>
+                <p className="badge">{getImportJobCount(jobName)}</p>
+              </div>
             </TableCell>
-            <TableCell align="left" onClick={() =>
+            <TableCell onClick={() =>
                 openModalContainer(jobName.toLowerCase().replace(/\s/g, ""))
               }>
               {jobData?.start_Time.substring(0, 11) || "-- --"}
             </TableCell>
-            <TableCell align="left" onClick={() =>
+            <TableCell onClick={() =>
                 openModalContainer(jobName.toLowerCase().replace(/\s/g, ""))
               }>
               {jobData?.start_Time && jobData?.end_Time
                 ? getExecutionTime(jobData?.start_Time, jobData?.end_Time)
                 : "-- --"}
             </TableCell>
-            <TableCell align="left" onClick={() =>
+            <TableCell onClick={() =>
                 openModalContainer(jobName.toLowerCase().replace(/\s/g, ""))
               }>
               {jobData ? (
@@ -99,7 +103,7 @@ function ImportRowContainer({
                 "-- --"
               )}
             </TableCell>
-            <TableCell align="left">
+            <TableCell>
               {jobData ? (
                 <div className="action-buttons">
                   <button

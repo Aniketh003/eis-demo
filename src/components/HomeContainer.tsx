@@ -2,10 +2,7 @@ import {
   Paper,
   TableBody,
   TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
+  Table
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import TableHeadContainer from "./TableHead";
@@ -28,23 +25,6 @@ const HomeContainer = () => {
       .then((res) => res.json())
       .then((res) => setCoreBatches(res));
   }, []);
-
-  const tableCountImportHeader = [
-    "Finance Import Job",
-    "DMS Stage Job",
-    "Vision Job",
-    "Brand Oem Import Job",
-    "Bi Stage Import Job",
-    "Vision CMF Number Job",
-    "Finance Corp Import Job"
-  ];
-
-  const tableCountCoreHeader = [
-    "Store Update Job",
-    "Genarate Stores Job",
-    "Generate Departments Job",
-    "UpSert Enterprises Job"
-  ];
 
   const getImportJobCount = (jobName: string) => {
     let count = 0;
@@ -75,24 +55,6 @@ const HomeContainer = () => {
     <div className="table-container">
       <div className="import-jobs">
         <h2>Upstream Import Batches</h2>
-        {/* <TableContainer component={Paper} sx={{width:"fit-content"}}>
-          <TableHead>
-            <TableRow>
-              <TableCell>Batch</TableCell>
-              {tableCountImportHeader.map((e) => (
-                <TableCell >{e}</TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <TableRow>
-              <TableCell>count</TableCell>
-              {tableCountImportHeader.map((e) => (
-                <TableCell>{getImportJobCount(e)}</TableCell>
-              ))}
-            </TableRow>
-          </TableBody>
-        </TableContainer> */}
         <TableContainer component={Paper} style={{ borderRadius: "10px" }}>
           <Table aria-label="simple table">
             <TableHeadContainer />
@@ -100,6 +62,7 @@ const HomeContainer = () => {
               <ImportRowContainer
                 batch={importBatches}
                 modalOpenRequired={true}
+                getImportJobCount={getImportJobCount}
               />
             </TableBody>
           </Table>
@@ -107,29 +70,11 @@ const HomeContainer = () => {
       </div>
       <div className="eis-core-jobs">
         <h2>EIS Core Batches</h2>
-        {/* <TableContainer component={Paper} sx={{width:"fit-content"}}>
-          <TableHead>
-            <TableRow>
-              <TableCell>Batch</TableCell>
-              {tableCountCoreHeader.map((e) => (
-                <TableCell>{e}</TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <TableRow>
-              <TableCell>count</TableCell>
-              {tableCountCoreHeader.map((e) => (
-                <TableCell>{getEisJobCount(e)}</TableCell>
-              ))}
-            </TableRow>
-          </TableBody>
-        </TableContainer> */}
         <TableContainer component={Paper} style={{ borderRadius: "10px" }}>
           <Table aria-label="simple table">
             <TableHeadContainer />
             <TableBody>
-              <CoreRowContainer batch={coreBatches} modalOpenRequired={true} />
+              <CoreRowContainer batch={coreBatches} modalOpenRequired={true} getEisJobCount={getEisJobCount}/>
             </TableBody>
           </Table>
         </TableContainer>

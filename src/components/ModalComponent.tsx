@@ -106,7 +106,7 @@ const ModalComponent = () => {
               <TableHeadContainer />
               <TableBody>
                 {dateData.map((e) => (
-                  <ModalRowContainer batch={e} modalOpenRequired={false}/>
+                  <ModalRowContainer batch={e} modalOpenRequired={false} />
                 ))}
               </TableBody>
             </Table>
@@ -149,7 +149,11 @@ const ModalComponent = () => {
                 page * rowsPerPage,
                 page * rowsPerPage + rowsPerPage
               ).map((e, index) => (
-                <ModalRowContainer batch={e} key={index} modalOpenRequired={false}/>
+                <ModalRowContainer
+                  batch={e}
+                  key={index}
+                  modalOpenRequired={false}
+                />
               ))}
             </TableBody>
           </Table>
