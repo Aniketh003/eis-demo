@@ -70,10 +70,7 @@ function CoreRowContainer({
                 openModalContainer(jobName.toLowerCase().replace(/\s/g, ""))
               }
             >
-              <div className="job-name-count">
-                <p>{jobName}</p>
-                <span className="badge">{getEisJobCount(jobName)}</span>
-              </div>
+              {jobName}
             </TableCell>
             <TableCell
               onClick={() =>
@@ -115,7 +112,7 @@ function CoreRowContainer({
                     }`}
                     disabled={jobData?.status === "COMPLETED"}
                   >
-                    rerun
+                    Rerun
                   </button>
                   <button
                     className={`action-btn ${
@@ -124,13 +121,14 @@ function CoreRowContainer({
                     disabled={jobData?.status === "COMPLETED"}
                     onClick={handlePopOverClick}
                   >
-                    reason
+                    Reason
                   </button>
                 </div>
               ) : (
                 "-- --"
               )}
             </TableCell>
+            <TableCell>{getEisJobCount(jobName)}</TableCell>
             <Popover
               id={id}
               open={open}

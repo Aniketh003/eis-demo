@@ -1,6 +1,6 @@
 import { TableCell, TableRow, TableHead } from "@mui/material";
 
-const TableHeadContainer = () => {
+const ModalHeadContainer = () => {
   return (
     <TableHead>
       <TableRow>
@@ -19,12 +19,9 @@ const TableHeadContainer = () => {
         <TableCell align="left" sx={{ }}>
           Action
         </TableCell>
-        <TableCell align="left" sx={{ }}>
-          Count
-        </TableCell>
       </TableRow>
     </TableHead>
   );
 };
 
-export default TableHeadContainer;
+export default ModalHeadContainer;

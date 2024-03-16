@@ -1,4 +1,5 @@
 export interface Batch {
+  execution_Id:number
   job_NAME: string;
   start_Time: string;
   status: string;
@@ -7,6 +8,7 @@ export interface Batch {
 }
 
 export interface BatchDummy{
+  execution_Id:number
   job_NAME: string;
   start_Time: string;
   status: string;

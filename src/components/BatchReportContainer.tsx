@@ -1,6 +1,7 @@
 import { Popover, TableCell, TableRow, Typography } from "@mui/material";
 import { useState } from "react";
 import { BatchReport } from "../model/Report";
+import BatchReportStatusButtons from "./BatchReportStatusButtons";
 
 interface BatchReportContainerProps {
   batch: BatchReport[] | null;
@@ -24,15 +25,16 @@ const BatchReportContainer = ({ batch }: BatchReportContainerProps) => {
     <>
       {batch?.map((report) => (
         <TableRow key={report.id}>
-          <TableCell>{report.createdDate.substring(0, 11)}</TableCell>
-          <TableCell>{report.batchName}</TableCell>
+          <TableCell>{report.identifierValue}</TableCell>
           <TableCell>{report.identifierType}</TableCell>
+          <TableCell>{report.createdBy}</TableCell>
+          <TableCell>{report.createdDate.substring(0, 11)}</TableCell>
+          <TableCell>{report.batchName ? report.batchName : "-- --"}</TableCell>
           <TableCell>{report.orgUnitType}</TableCell>
-          <TableCell>{report.status}</TableCell>
+          <TableCell><BatchReportStatusButtons status={report.status}/></TableCell>
           <TableCell>
             <button onClick={(event) => handlePopOverClick(event, report)}className="batch-report-row-button">view</button>
           </TableCell>
-          <TableCell>{report.createdBy}</TableCell>
           <Popover
             open={selectedReport?.id === report.id}
             anchorEl={anchorEl}

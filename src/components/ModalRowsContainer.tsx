@@ -3,7 +3,8 @@ import CompleteBadge from "./CompleteBadge";
 import FailedBadge from "./FailedBadge";
 import { Batch } from "../model/JobModel";
 import { useContext, useState } from "react";
-import { ModalContext } from "../context/ModalProvider";
+import RunningBadge from "./RunningBadge";
+import { JobContext } from "../context/JobDataProvider";
 
 interface TableRowContainerProps {
   batch: Batch;
@@ -12,12 +13,11 @@ interface TableRowContainerProps {
 
 function ModalRowContainer({
   batch,
-  modalOpenRequired,
 }: TableRowContainerProps) {
-  const modalContext = useContext(ModalContext);
+  const jobContext = useContext(JobContext)
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const { job_NAME, start_Time, status, end_Time, exit_Message } = batch;
+  const { job_NAME, start_Time, status, end_Time, exit_Message , execution_Id } = batch;
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -41,11 +41,10 @@ function ModalRowContainer({
     setAnchorEl(null);
   };
 
-  const openModalContainer = () => {
-    if (modalOpenRequired) {
-      modalContext?.openModal(job_NAME);
-    }
-  };
+  const handleStatusChange = () => {
+    jobContext?.handleRerunData(execution_Id.toString())
+    jobContext?.setDataChange(true)
+  }
 
   const getJobName = (jobName:string) => {
     switch(jobName){
@@ -74,22 +73,23 @@ function ModalRowContainer({
           : "N/A"}
       </TableCell>
       <TableCell>
-        {status === "COMPLETED" ? <CompleteBadge /> : <FailedBadge />}
+        {status === "COMPLETED" ? <CompleteBadge /> : status === "RUNNING" ? <RunningBadge/> : <FailedBadge/>}
       </TableCell>
       <TableCell>
         <div className="action-buttons">
           <button
-            className={`action-btn ${status === "COMPLETED" && "disabled"}`}
-            disabled={status === "COMPLETED"}
+            className={`action-btn ${(status === "COMPLETED" || status === "RUNNING") && "disabled"}`}
+            disabled={status === "COMPLETED" || status === "RUNNING"}
+            onClick={handleStatusChange}
           >
-            rerun
+            Rerun
           </button>
           <button
             onClick={handlePopOverClick}
             disabled={status === "COMPLETED"}
             className={`action-btn ${status === "COMPLETED" && "disabled"}`}
           >
-            reason
+            Reason
           </button>
         </div>
       </TableCell>

@@ -4,13 +4,14 @@ const BatchReportHeadContainer = () => {
   return (
     <TableHead>
       <TableRow>
-        <TableCell sx={{ width: `${100 / 8}%` }}>Created Date</TableCell>
-        <TableCell sx={{ width: `${100 / 8}%` }}>Batch Name</TableCell>
-        <TableCell sx={{ width: `${100 / 8}%` }}>Identifier Type</TableCell>
-        <TableCell sx={{ width: `${100 / 8}%` }}>Org Unit Type</TableCell>
-        <TableCell sx={{ width: `${100 / 8}%` }}>Status</TableCell>
-        <TableCell sx={{ width: `${100 / 8}%` }}>Comments</TableCell>
-        <TableCell sx={{ width: `${100 / 8}%` }}>Created By</TableCell>
+        <TableCell>Identifier Value</TableCell>
+        <TableCell>Identifier Type</TableCell>
+        <TableCell>Created By</TableCell>
+        <TableCell>Created Date</TableCell>
+        <TableCell>Batch Name</TableCell>
+        <TableCell>Org Unit Type</TableCell>
+        <TableCell>Status</TableCell>
+        <TableCell>Comments</TableCell>
       </TableRow>
     </TableHead>
   );

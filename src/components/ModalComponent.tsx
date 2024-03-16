@@ -6,12 +6,14 @@ import {
   TablePagination,
 } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
-import TableHeadContainer from "./TableHead";
 import { Batch } from "../model/JobModel";
 import { ModalContext } from "../context/ModalProvider";
 import ModalRowContainer from "./ModalRowsContainer";
+import { JobContext } from "../context/JobDataProvider";
+import ModalHeadContainer from "./ModalHead";
 
 const ModalComponent = () => {
+  const jobContext = useContext(JobContext)
   const rowsPerPageOptions = [7, 15, 25];
   const today = new Date().toISOString().split("T")[0];
   const modalContext = useContext(ModalContext);
@@ -35,6 +37,13 @@ const ModalComponent = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    fetchData()
+    setFilter("all")
+    setFocused("all")
+    handleFilterButton(focused,filter)
+  },[jobContext?.dataChange])
 
   useEffect(() => {
     setFilteredData(data);
@@ -89,7 +98,7 @@ const ModalComponent = () => {
   };
   return (
     <div className="modal-container">
-      <div className="filter-container">
+      <div className="filter-container-date">
         <h2>
           Result based on <b>{date}</b>
         </h2>
@@ -103,10 +112,10 @@ const ModalComponent = () => {
         <div className="date-result">
           <TableContainer component={Paper} style={{ borderRadius: "8px" }}>
             <Table>
-              <TableHeadContainer />
+              <ModalHeadContainer />
               <TableBody>
-                {dateData.map((e) => (
-                  <ModalRowContainer batch={e} modalOpenRequired={false} />
+                {dateData.map((e,index) => (
+                  <ModalRowContainer batch={e} modalOpenRequired={false} key={index}/>
                 ))}
               </TableBody>
             </Table>
@@ -116,7 +125,7 @@ const ModalComponent = () => {
         <p style={{ textAlign: "center" }}>No data Found</p>
       )}
       <div className="modal-contaier">
-        <div className="filter-container">
+        <div className="filter-container-all">
           <div className="past-container">
             <p>Past {rowsPerPage} days</p>
           </div>
@@ -143,7 +152,7 @@ const ModalComponent = () => {
         </div>
         <TableContainer component={Paper} style={{ borderRadius: "8px" }}>
           <Table>
-            <TableHeadContainer />
+          <ModalHeadContainer />
             <TableBody>
               {FilteredData.slice(
                 page * rowsPerPage,

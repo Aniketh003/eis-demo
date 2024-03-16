@@ -1,27 +1,25 @@
 import BatchReportHeadContainer from "./BatchReportHeader";
 import BatchReportContainer from "./BatchReportContainer";
 import { Paper, Table, TableBody, TableContainer } from "@mui/material";
-import { useState } from "react";
-import { BatchReport } from "../model/Report";
+import { useContext, useState } from "react";
+import { BatchReportContext } from "../context/BatchReportProvider";
 
 const BatchReports = () => {
+  const batchReportContext = useContext(BatchReportContext);
   const [search, setSearch] = useState("");
-  const [data, setData] = useState<BatchReport[]>([]);
+  const [error, setError] = useState("Search by Party Number or CSID Number");
 
   const getBatchReports = () => {
-    try {
-      const data = fetch(
-        `http://localhost:8080/batch-reports/?identifier=${search}`
-      )
-        .then((res) => res.json())
-        .then((res) => setData(res));
+    if (search !== "") {
+      batchReportContext?.getBatchReports(search);
+    }
 
-      } catch (error) {
-        console.log(error);
-      }
+    if (batchReportContext?.data.length === 0) {
+      setError("No data found");
+    }
 
-      setSearch("");
-    };
+    setSearch("");
+  };
 
   return (
     <div className="batch-report-container">
@@ -32,20 +30,20 @@ const BatchReports = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button onClick={getBatchReports}>search</button>
+        <button onClick={() => getBatchReports()}>search</button>
       </div>
-      {data?.length ? (
+      {batchReportContext?.data?.length ? (
         <TableContainer component={Paper} style={{ borderRadius: "10px" }}>
           <Table aria-label="simple table">
             <BatchReportHeadContainer />
             <TableBody>
-              <BatchReportContainer batch={data} />
+              <BatchReportContainer batch={batchReportContext?.data} />
             </TableBody>
           </Table>
         </TableContainer>
       ) : (
         <div className="empty-container">
-          <h2>Search by Party Number or CSID Number</h2>
+          <h2>{error}</h2>
         </div>
       )}
     </div>

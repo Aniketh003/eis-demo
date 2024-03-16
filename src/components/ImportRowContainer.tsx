@@ -4,11 +4,13 @@ import FailedBadge from "./FailedBadge";
 import { Batch } from "../model/JobModel";
 import { useContext, useState } from "react";
 import { ModalContext } from "../context/ModalProvider";
+import { JobContext } from "../context/JobDataProvider";
+import RunningBadge from "./RunningBadge";
 
 interface TableRowContainerProps {
   batch: Batch[];
   modalOpenRequired: boolean;
-  getImportJobCount:(name:string) => number
+  getImportJobCount: (name: string) => number;
 }
 
 function ImportRowContainer({
@@ -17,6 +19,7 @@ function ImportRowContainer({
   getImportJobCount,
 }: TableRowContainerProps) {
   const modalContext = useContext(ModalContext);
+  const jobContext = useContext(JobContext);
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -73,29 +76,34 @@ function ImportRowContainer({
                 openModalContainer(jobName.toLowerCase().replace(/\s/g, ""))
               }
             >
-              <div className="job-name-count">
-                <p>{jobName}</p>
-                <p className="badge">{getImportJobCount(jobName)}</p>
-              </div>
+              {jobName}
             </TableCell>
-            <TableCell onClick={() =>
+            <TableCell
+              onClick={() =>
                 openModalContainer(jobName.toLowerCase().replace(/\s/g, ""))
-              }>
+              }
+            >
               {jobData?.start_Time.substring(0, 11) || "-- --"}
             </TableCell>
-            <TableCell onClick={() =>
+            <TableCell
+              onClick={() =>
                 openModalContainer(jobName.toLowerCase().replace(/\s/g, ""))
-              }>
-              {jobData?.start_Time && jobData?.end_Time
+              }
+            >
+              {jobData?.start_Time && jobData.end_Time
                 ? getExecutionTime(jobData?.start_Time, jobData?.end_Time)
                 : "-- --"}
             </TableCell>
-            <TableCell onClick={() =>
+            <TableCell
+              onClick={() =>
                 openModalContainer(jobName.toLowerCase().replace(/\s/g, ""))
-              }>
+              }
+            >
               {jobData ? (
                 jobData?.status === "COMPLETED" ? (
                   <CompleteBadge />
+                ) : jobData?.status === "RUNNING" ? (
+                  <RunningBadge />
                 ) : (
                   <FailedBadge />
                 )
@@ -111,8 +119,14 @@ function ImportRowContainer({
                       jobData?.status === "COMPLETED" && "disabled"
                     }`}
                     disabled={jobData?.status === "COMPLETED"}
+                    onClick={() =>
+                      jobData &&
+                      jobContext?.handleRerunData(
+                        jobData.execution_Id.toString()
+                      )
+                    }
                   >
-                    rerun
+                    Rerun
                   </button>
                   <button
                     className={`action-btn ${
@@ -121,13 +135,14 @@ function ImportRowContainer({
                     disabled={jobData?.status === "COMPLETED"}
                     onClick={handlePopOverClick}
                   >
-                    reason
+                    Reason
                   </button>
                 </div>
               ) : (
                 "-- --"
               )}
             </TableCell>
+            <TableCell>{getImportJobCount(jobName)}</TableCell>
             <Popover
               id={id}
               open={open}

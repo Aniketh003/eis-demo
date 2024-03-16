@@ -4,27 +4,18 @@ import {
   TableContainer,
   Table
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import React from "react";
 import TableHeadContainer from "./TableHead";
 import { Batch } from "../model/JobModel";
 import ImportRowContainer from "./ImportRowContainer";
 import CoreRowContainer from "./CoreRowContainer";
 
-const HomeContainer = () => {
-  const [importBatches, setImportBatches] = useState<Batch[]>([]);
-  const [coreBatches, setCoreBatches] = useState<Batch[]>([]);
+interface HomeContainerProps{
+  importBatches:Batch[],
+  coreBatches:Batch[]
+}
 
-  useEffect(() => {
-    const data = fetch("http://localhost:8080/batch-jobs/import-jobs")
-      .then((res) => res.json())
-      .then((res) => setImportBatches(res));
-  }, []);
-
-  useEffect(() => {
-    const data = fetch("http://localhost:8080/batch-jobs/core-jobs")
-      .then((res) => res.json())
-      .then((res) => setCoreBatches(res));
-  }, []);
+const HomeContainer:React.FC<HomeContainerProps> = ({importBatches,coreBatches}:HomeContainerProps) => {
 
   const getImportJobCount = (jobName: string) => {
     let count = 0;
