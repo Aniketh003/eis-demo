@@ -9,6 +9,10 @@ body{
   background-color: #faf9f6;
 }
 
+.hidden{
+  display: none;
+}
+
 .table-container {
   width: 100%;
   min-height: auto;

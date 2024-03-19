@@ -3,19 +3,21 @@ import BatchReportContainer from "./BatchReportContainer";
 import { Paper, Table, TableBody, TableContainer } from "@mui/material";
 import { useContext, useState } from "react";
 import { BatchReportContext } from "../context/BatchReportProvider";
+import { BatchReport } from "../model/Report";
 
 const BatchReports = () => {
-  const batchReportContext = useContext(BatchReportContext);
+  const { getBatchReports, data } = useContext(BatchReportContext);
   const [search, setSearch] = useState("");
+  const [batchData, setBatchData] = useState<BatchReport[]>([]);
   const [error, setError] = useState("Search by Party Number or CSID Number");
 
-  const getBatchReports = () => {
+  const handleSearch = () => {
     if (search !== "") {
-      batchReportContext?.getBatchReports(search);
-    }
-
-    if (batchReportContext?.data.length === 0) {
-      setError("No data found");
+      getBatchReports(search);
+      setBatchData(data);
+      if (data.length === 0) {
+        setError(`No data found for CSID/Party number ${search}`);
+      }
     }
 
     setSearch("");
@@ -30,20 +32,20 @@ const BatchReports = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button onClick={() => getBatchReports()}>search</button>
+        <button onClick={handleSearch}>search</button>
       </div>
-      {batchReportContext?.data?.length ? (
+      {batchData.length ? (
         <TableContainer component={Paper} style={{ borderRadius: "10px" }}>
           <Table aria-label="simple table">
             <BatchReportHeadContainer />
             <TableBody>
-              <BatchReportContainer batch={batchReportContext?.data} />
+              <BatchReportContainer batch={batchData} />
             </TableBody>
           </Table>
         </TableContainer>
       ) : (
         <div className="empty-container">
-          <h2>{error}</h2>
+          <p>{error}</p>
         </div>
       )}
     </div>

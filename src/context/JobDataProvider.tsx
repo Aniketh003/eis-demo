@@ -1,17 +1,26 @@
 import { ReactNode, createContext, useState } from "react";
+import axiosInstance from "./axios";
 import { Batch } from "../model/JobModel";
 
 interface JobDataProps {
   handleRerunData: (executionId: string) => void;
   dataChange: boolean;
   setDataChange: React.Dispatch<React.SetStateAction<boolean>>;
-  importBatches:Batch[],
-  coreBatches:Batch[],
-  fetchImportBatches:() => Batch[],
-  fetchCoreBatches:() => Batch[]
+  importBatches: Batch[];
+  coreBatches: Batch[];
+  fetchImportBatches: () => Promise<Batch[]>;
+  fetchCoreBatches: () => Promise<Batch[]>;
 }
 
-export const JobContext = createContext<JobDataProps>();
+export const JobContext = createContext<JobDataProps>({
+  handleRerunData: () => {},
+  dataChange: false,
+  setDataChange: () => {},
+  importBatches: [],
+  coreBatches: [],
+  fetchImportBatches: async () => [],
+  fetchCoreBatches: async () => [],
+});
 
 interface JobProviderProps {
   children: ReactNode;
@@ -22,42 +31,33 @@ const JobProvider: React.FC<JobProviderProps> = ({ children }) => {
   const [importBatches, setImportBatches] = useState<Batch[]>([]);
   const [coreBatches, setCoreBatches] = useState<Batch[]>([]);
 
-  const fetchImportBatches = () => {
-    const data = fetch("http://localhost:8080/batch-jobs/import-jobs")
-    .then((res) => res.json())
-    .then((res) => setImportBatches(res));
-    console.log("Fetched")
-    return importBatches;
-  }
+  const fetchImportBatches = async () => {
+    try {
+      const response = await axiosInstance.get("/batch-jobs/import-jobs");
+      setImportBatches(response.data);
+      return response.data;
+    } catch (error) {
+      return [];
+    }
+  };
 
-  const fetchCoreBatches = () => {
-    const data = fetch("http://localhost:8080/batch-jobs/core-jobs")
-    .then((res) => res.json())
-    .then((res) => setCoreBatches(res));
+  const fetchCoreBatches = async () => {
+    try {
+      const response = await axiosInstance.get("/batch-jobs/core-jobs");
+      setCoreBatches(response.data);
+      return response.data;
+    } catch (error) {
+      return [];
+    }
+  };
 
-    return coreBatches;
-  }
-
-  const handleRerunData = (executionId: string) => {
-    fetch(`http://localhost:8080/batch-jobs/rerun?exeId=${executionId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ exeId: executionId }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return res;
-      })
-      .then((data) => {
-        console.log("Response:", data);
-      })
-      .catch((err) => {
-        console.error("Error:", err);
+  const handleRerunData = async (executionId: string) => {
+    try {
+      const response = await axiosInstance.post("/batch-jobs/rerun", {
+        exeId: executionId,
       });
+    } catch (error) {
+    }
   };
 
   const contextValue: JobDataProps = {
@@ -67,7 +67,7 @@ const JobProvider: React.FC<JobProviderProps> = ({ children }) => {
     importBatches,
     coreBatches,
     fetchCoreBatches,
-    fetchImportBatches
+    fetchImportBatches,
   };
 
   return (
