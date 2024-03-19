@@ -3,18 +3,15 @@ import BatchReportContainer from "./BatchReportContainer";
 import { Paper, Table, TableBody, TableContainer } from "@mui/material";
 import { useContext, useState } from "react";
 import { BatchReportContext } from "../context/BatchReportProvider";
-import { BatchReport } from "../model/Report";
 
 const BatchReports = () => {
   const { getBatchReports, data } = useContext(BatchReportContext);
   const [search, setSearch] = useState("");
-  const [batchData, setBatchData] = useState<BatchReport[]>([]);
   const [error, setError] = useState("Search by Party Number or CSID Number");
 
   const handleSearch = () => {
     if (search !== "") {
       getBatchReports(search);
-      setBatchData(data);
       if (data.length === 0) {
         setError(`No data found for CSID/Party number ${search}`);
       }
@@ -34,12 +31,12 @@ const BatchReports = () => {
         />
         <button onClick={handleSearch}>search</button>
       </div>
-      {batchData.length ? (
+      {data.length ? (
         <TableContainer component={Paper} style={{ borderRadius: "10px" }}>
           <Table aria-label="simple table">
             <BatchReportHeadContainer />
             <TableBody>
-              <BatchReportContainer batch={batchData} />
+              <BatchReportContainer batch={data} />
             </TableBody>
           </Table>
         </TableContainer>

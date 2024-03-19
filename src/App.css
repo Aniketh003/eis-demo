@@ -339,6 +339,11 @@ button {
   color: #ffffff;
 }
 
+.eis-data-container{
+  display: flex;
+  gap: 10px;
+}
+
 @media only screen and (max-width: 600px) {
   body {
     padding: 15px 20px;

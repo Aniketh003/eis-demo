@@ -46,7 +46,7 @@ const EisDataRecoiliation = () => {
           </TableHead>
           <TableBody>
             {tableHeader.map((e, index) => (
-              <TableRow>
+              <TableRow key={index}>
                 <TableCell>{e}</TableCell>
                 <TableCell></TableCell>
               </TableRow>
@@ -62,7 +62,18 @@ const EisDataRecoiliation = () => {
               <TableCell>Count</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody></TableBody>
+          <TableBody>
+            {inputPlaceHolders.map((e, index) => (
+              <TableRow>
+                <TableCell>
+                  <input type="text" name="" id="" placeholder={e} />
+                </TableCell>
+                <TableCell>
+                  <button>search</button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </TableContainer>
     </div>
