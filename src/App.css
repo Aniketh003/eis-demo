@@ -348,6 +348,13 @@ button {
   font-size: 14px;
 }
 
+.eis-data-container input{
+  width: 100%;
+  padding: 4px 5px;
+  text-wrap: wrap;
+  font-size: 14px;
+}
+
 @media only screen and (max-width: 600px) {
   body {
     padding: 15px 20px;

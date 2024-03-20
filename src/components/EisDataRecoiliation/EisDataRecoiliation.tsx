@@ -13,11 +13,11 @@ const tableHeader = [
   "CMF and store matching in EIS vs mapping in finance",
   "Missing Active Parties in EIS",
   "Consolidation IDs missing in EIS",
-  "Stores without Fortellis Entity",
-  "Stares without GL company ID",
+  "Stores without Fortellis Entity ID",
+  "Stores without GL company ID",
   "Stores with more than one-A department",
-  "Stones with missing franchise information",
-  "Count of different types of stores in ES",
+  "Stores with missing franchise information",
+  "Count of different types of stores in EIS",
   "Count of Active DMS Boxes in EIS",
   "Count of Inactive DMS Boxes in EIS",
   "Total Departments present in EIS",
@@ -26,12 +26,11 @@ const tableHeader = [
 ];
 
 const inputPlaceHolders = [
-  "Enter party number/store I as input and retum all stores associated to that party",
-  "Get all logons associated to a CMF (CMF as input)",
-  "Get logon CMF when logon name and Cnumber is passed as input",
-  "Retum all stores connected to a Crumber",
-  "when Chumber is passed as input",
-  "Get all franchisees in Brand OEM stage and in Els when store/party is passed as input",
+  "Get all stores by partynumber/store id",
+  "Get all logons associated to a CMF by CMF number",
+  "Get logon CMF by logon name and Cnumber",
+  "Return all stores connected by Cnumber",
+  "Get all franchisees in Brand OEM stage/EIS by storeId/partyNumber",
 ];
 const EisDataRecoiliation = () => {
   return (
@@ -66,7 +65,7 @@ const EisDataRecoiliation = () => {
             {inputPlaceHolders.map((e, index) => (
               <TableRow>
                 <TableCell>
-                  {e}
+                  <input type="text" placeholder={e} />
                 </TableCell>
                 <TableCell>
                   <button className="action-btn">search</button>

@@ -6,10 +6,10 @@ import {
   TablePagination,
 } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
-import { Batch } from "../model/JobModel";
-import { ModalContext } from "../context/ModalProvider";
+import { Batch } from "../../model/JobModel";
+import { ModalContext } from "../../context/ModalProvider";
 import ModalRowContainer from "./ModalRowsContainer";
-import { JobContext } from "../context/JobDataProvider";
+import { JobContext } from "../../context/JobDataProvider";
 import ModalHeadContainer from "./ModalHead";
 
 const ModalComponent = () => {

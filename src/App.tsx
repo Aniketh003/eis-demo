@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import "./App.css";
-import HomeContainer from "./components/HomeContainer";
-import ModalContainer from "./components/ModalContainer";
-import BatchReports from "./components/BatchReports";
+import HomeContainer from "./components/JobReports/HomeContainer";
+import ModalContainer from "./components/ModalComponents/ModalContainer";
+import BatchReports from "./components/BatchReports/BatchReports";
 import { JobContext } from "./context/JobDataProvider";
 import { ModalContext } from "./context/ModalProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import EisDataRecoiliation from "./components/EisDataRecoiliation";
+import EisDataRecoiliation from "./components/EisDataRecoiliation/EisDataRecoiliation";
 
 function App() {
   const [selectVisible, setSelectVisible] = useState<string>("Home");

@@ -2,7 +2,7 @@ import BatchReportHeadContainer from "./BatchReportHeader";
 import BatchReportContainer from "./BatchReportContainer";
 import { Paper, Table, TableBody, TableContainer } from "@mui/material";
 import { useContext, useState } from "react";
-import { BatchReportContext } from "../context/BatchReportProvider";
+import { BatchReportContext } from "../../context/BatchReportProvider";
 
 const BatchReports = () => {
   const { getBatchReports, data } = useContext(BatchReportContext);
