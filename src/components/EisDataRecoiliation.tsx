@@ -22,7 +22,7 @@ const tableHeader = [
   "Count of Inactive DMS Boxes in EIS",
   "Total Departments present in EIS",
   "Total Departments mapped to stores",
-  "Count of departments for which Dept Company ID is not matching in Ets and DMS stage",
+  "Count of departments for which Dept Company ID is not matching in EIS and DMS stage",
 ];
 
 const inputPlaceHolders = [
@@ -40,36 +40,36 @@ const EisDataRecoiliation = () => {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Description</TableCell>
-              <TableCell>Count</TableCell>
+              <TableCell sx={{width:"75%"}}>Description</TableCell>
+              <TableCell align="center">Count</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {tableHeader.map((e, index) => (
               <TableRow key={index}>
                 <TableCell>{e}</TableCell>
-                <TableCell></TableCell>
+                <TableCell align="center"></TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <TableContainer component={Paper} style={{ borderRadius: "10px" }}>
+      <TableContainer component={Paper} style={{ borderRadius: "10px" , height:"fit-content"}}>
         <Table aria-label="simple table">
-          <TableHead>
+          <TableHead >
             <TableRow>
-              <TableCell>Description</TableCell>
-              <TableCell>Count</TableCell>
+              <TableCell sx={{width:"80%"}}>Description</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {inputPlaceHolders.map((e, index) => (
               <TableRow>
                 <TableCell>
-                  <input type="text" name="" id="" placeholder={e} />
+                  {e}
                 </TableCell>
                 <TableCell>
-                  <button>search</button>
+                  <button className="action-btn">search</button>
                 </TableCell>
               </TableRow>
             ))}

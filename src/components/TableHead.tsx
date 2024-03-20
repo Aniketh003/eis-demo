@@ -7,19 +7,19 @@ const TableHeadContainer = () => {
         <TableCell align="left" sx={{ height: "50px" }}>
           Batch Name
         </TableCell>
-        <TableCell align="left" sx={{ }}>
+        <TableCell align="left">
           Date
         </TableCell>
-        <TableCell align="left" sx={{ }}>
+        <TableCell align="left">
           Execution Time
         </TableCell>
-        <TableCell align="left" sx={{ }}>
+        <TableCell align="left">
           Run Status
         </TableCell>
-        <TableCell align="left" sx={{ }}>
+        <TableCell align="left">
           Action
         </TableCell>
-        <TableCell align="left" sx={{ }}>
+        <TableCell align="left">
           Count
         </TableCell>
       </TableRow>
