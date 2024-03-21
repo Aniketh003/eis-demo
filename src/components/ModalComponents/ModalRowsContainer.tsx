@@ -28,8 +28,8 @@ function ModalRowContainer({
     const hr = Math.abs(endTime.getHours() - startTime.getHours());
     const min = Math.abs(endTime.getMinutes() - startTime.getMinutes());
     const sec = Math.abs(endTime.getSeconds() - startTime.getSeconds());
-    return `${hr > 12 ? hr : "0" + hr}:${min > 10 ? min : "0" + min}:${
-      sec > 10 ? sec : "0" + sec
+    return `${hr > 12 ? hr : "0" + hr}:${min >= 10 ? min : "0" + min}:${
+      sec >= 10 ? sec : "0" + sec
     }`;
   };
 
@@ -64,7 +64,7 @@ function ModalRowContainer({
   }
 
   return (
-    <TableRow  style={{ cursor: "pointer" }}>
+    <TableRow>
       <TableCell>{getJobName(job_NAME)}</TableCell>
       <TableCell>{start_Time.substring(0, 11)}</TableCell>
       <TableCell>

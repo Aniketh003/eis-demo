@@ -96,7 +96,7 @@ function ImportRowContainer({
             </TableCell>
             <TableCell
               onClick={() =>
-                openModalContainer(jobName.toLowerCase().replace(/\s/g, ""))
+                openModalContainer(jobName.toLowerCase())
               }
             >
               {jobData ? (

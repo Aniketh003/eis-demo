@@ -3,59 +3,56 @@ import {
   TableBody,
   TableContainer,
   Table,
-  TablePagination,
+  Pagination,
 } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Batch } from "../../model/JobModel";
 import { ModalContext } from "../../context/ModalProvider";
 import ModalRowContainer from "./ModalRowsContainer";
-import { JobContext } from "../../context/JobDataProvider";
 import ModalHeadContainer from "./ModalHead";
+import axiosInstance from "../../context/axios";
 
 const ModalComponent = () => {
-  const jobContext = useContext(JobContext)
+  const modalContext = useContext(ModalContext);
   const rowsPerPageOptions = [7, 15, 25];
   const today = new Date().toISOString().split("T")[0];
-  const modalContext = useContext(ModalContext);
   const [data, setData] = useState<Batch[]>([]);
-  const [FilteredData, setFilteredData] = useState<Batch[]>(data);
   const [filter, setFilter] = useState("all");
+  const [total, setTotal] = useState(0);
   const [dateData, setDateData] = useState<Batch[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageOptions[0]);
   const [date, setDate] = useState("2024-01-23");
   const [focused, setFocused] = useState("all");
 
-  const fetchData = () => {
-    const data = fetch(
-      `http://localhost:8080/batch-jobs/data?jobName=${modalContext?.batchName}`
-    )
-      .then((res) => res.json())
-      .then((res) => setData(res));
+  const fetchData = async (
+    page: number,
+    rowsPerPage: number,
+    status: string
+  ) => {
+    try {
+      const response = await axiosInstance.get(
+        `http://localhost:8080/batch-jobs/pagination/${status}?jobName=${modalContext?.batchName}&page=${page}&size=${rowsPerPage}`
+      );
+      setData(response.data.content);
+      setTotal(response.data.totalPages);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData(page, rowsPerPage, filter);
   }, []);
-
-  useEffect(() => {
-    fetchData()
-    setFilter("all")
-    setFocused("all")
-    handleFilterButton(focused,filter)
-  },[jobContext?.dataChange])
-
-  useEffect(() => {
-    setFilteredData(data);
-  }, [data]);
 
   useEffect(() => {
     try {
       if (date !== "") {
-        const data = fetch(
-          `http://localhost:8080/batch-jobs/getJob?jobName=${modalContext?.batchName}&date=${date}`
-        )
-          .then((res) => res.json())
+        axiosInstance
+          .get(
+            `http://localhost:8080/batch-jobs/getJob?jobName=${modalContext?.batchName}&date=${date}`
+          )
+          .then((res) => res.data)
           .then((res) => setDateData(res));
       }
     } catch (error) {
@@ -66,21 +63,12 @@ const ModalComponent = () => {
   const handleFilterButton = (buttonName: string, filter: string) => {
     setFocused(buttonName);
     setFilter(filter);
+
   };
 
   useEffect(() => {
-    if (filter === "all") {
-      setFilteredData(data);
-    } else if (filter === "COMPLETED") {
-      const completedData = data.filter((item) => item.status === "COMPLETED");
-      setFilteredData(completedData);
-    } else {
-      const otherData = data.filter(
-        (item) => item.status === "FAILED" || item.status === "UNKNOWN"
-      );
-      setFilteredData(otherData);
-    }
     setPage(0);
+    fetchData(page, rowsPerPage, filter);
   }, [filter]);
 
   const handlePageChange = (
@@ -88,13 +76,15 @@ const ModalComponent = () => {
     newPage: number
   ) => {
     setPage(newPage);
+    fetchData(newPage, rowsPerPage, filter);
   };
 
-  const handleChangeRowsPerPage = (
+  const handleChangeRowsPerPage = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+    fetchData(page, rowsPerPage, filter);
   };
   return (
     <div className="modal-container">
@@ -114,8 +104,12 @@ const ModalComponent = () => {
             <Table>
               <ModalHeadContainer />
               <TableBody>
-                {dateData.map((e,index) => (
-                  <ModalRowContainer batch={e} modalOpenRequired={false} key={index}/>
+                {dateData.map((e, index) => (
+                  <ModalRowContainer
+                    batch={e}
+                    modalOpenRequired={false}
+                    key={index}
+                  />
                 ))}
               </TableBody>
             </Table>
@@ -152,12 +146,9 @@ const ModalComponent = () => {
         </div>
         <TableContainer component={Paper} style={{ borderRadius: "8px" }}>
           <Table>
-          <ModalHeadContainer />
+            <ModalHeadContainer />
             <TableBody>
-              {FilteredData.slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage
-              ).map((e, index) => (
+              {data.map((e, index) => (
                 <ModalRowContainer
                   batch={e}
                   key={index}
@@ -166,16 +157,14 @@ const ModalComponent = () => {
               ))}
             </TableBody>
           </Table>
-          <TablePagination
-            rowsPerPageOptions={rowsPerPageOptions}
-            component="div"
-            count={FilteredData.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handlePageChange}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
         </TableContainer>
+        <div className="pagination">
+          <Pagination
+            count={total - 1}
+            onChange={handlePageChange}
+            size="large"
+          />
+        </div>
       </div>
     </div>
   );
