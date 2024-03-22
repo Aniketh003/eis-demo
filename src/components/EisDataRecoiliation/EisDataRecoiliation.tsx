@@ -2,6 +2,7 @@ import {
   Box,
   Modal,
   Paper,
+  Slide,
   Table,
   TableBody,
   TableCell,
@@ -38,12 +39,11 @@ const inputPlaceHolders = [
 ];
 
 const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute" as "absolute",
+  bottom: 20,
+  right: 30,
   width: "fit-content",
-  bgcolor: 'background.paper',
+  bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
 };
@@ -52,17 +52,24 @@ const response =
   "AM-FI:76068005,AM-A:76068005,AM-I:76068005,GRV-FI:76068005,AM-SL:76068005,AM-CM:76068005,AM-S:76068005,AM-V:76068005,GRV-S:76068005,ACDB2:76068005,AM-P:76068005";
 const EisDataRecoiliation = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [checked, setChecked] = useState(false);
 
-  const dataModal = response.split(",")
+  const dataModal = response.split(",");
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
   const handlePopOverClose = () => {
     setAnchorEl(null);
+    setChecked((prev) => !prev);
   };
 
   const handlePopOverClick = (event) => {
     setAnchorEl(event.currentTarget);
+    setChecked((prev) => !prev);
+  };
+
+  const handleChange = () => {
+    setChecked((prev) => !prev);
   };
 
   return (
@@ -109,7 +116,9 @@ const EisDataRecoiliation = () => {
                   <input type="text" placeholder={e} />
                 </TableCell>
                 <TableCell>
-                  <button className="action-btn" onClick={handlePopOverClick}>search</button>
+                  <button className="action-btn" onClick={handlePopOverClick}>
+                    search
+                  </button>
                 </TableCell>
               </TableRow>
             ))}
@@ -121,16 +130,18 @@ const EisDataRecoiliation = () => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style} >
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Text in a modal
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              {dataModal.map((e,index) => (
-                <p key={index}>{e}</p>
-              ))}
-            </Typography>
-          </Box>
+          <Slide direction="left" in={checked}>
+            <Box sx={style}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                Text in a modal
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                {dataModal.map((e, index) => (
+                  <p key={index}>{e}</p>
+                ))}
+              </Typography>
+            </Box>
+          </Slide>
         </Modal>
       </TableContainer>
     </div>
