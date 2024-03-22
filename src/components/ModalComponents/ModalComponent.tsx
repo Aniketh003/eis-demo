@@ -4,6 +4,7 @@ import {
   TableContainer,
   Table,
   Pagination,
+  Card,
 } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Batch } from "../../model/JobModel";
@@ -63,7 +64,6 @@ const ModalComponent = () => {
   const handleFilterButton = (buttonName: string, filter: string) => {
     setFocused(buttonName);
     setFilter(filter);
-
   };
 
   useEffect(() => {
@@ -79,13 +79,6 @@ const ModalComponent = () => {
     fetchData(newPage, rowsPerPage, filter);
   };
 
-  const handleChangeRowsPerPage = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-    fetchData(page, rowsPerPage, filter);
-  };
   return (
     <div className="modal-container">
       <div className="filter-container-date">
@@ -100,7 +93,7 @@ const ModalComponent = () => {
       </div>
       {dateData.length !== 0 ? (
         <div className="date-result">
-          <TableContainer component={Paper} style={{ borderRadius: "8px" }}>
+          <TableContainer component={Card} style={{ borderRadius: "8px" }}>
             <Table>
               <ModalHeadContainer />
               <TableBody>
@@ -141,6 +134,12 @@ const ModalComponent = () => {
               onClick={() => handleFilterButton("failed", "FAILED")}
             >
               Failed
+            </button>
+            <button
+              className={focused === "running" ? "active" : ""}
+              onClick={() => handleFilterButton("running", "RUNNING")}
+            >
+              Running
             </button>
           </div>
         </div>

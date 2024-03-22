@@ -363,8 +363,28 @@ button {
 }
 
 @media only screen and (max-width: 600px) {
-  body {
-    padding: 15px 20px;
-    font-size: small;
+  .main-container {
+    padding: 5px 15px;
+  }
+  
+  .modal-container .filter-container-date h2 {
+    font-size: 16px;
+  }
+
+  .action-btn {
+    font-size: 16px;
+  }
+
+  .modal-container {
+    padding: 10px; 
+    gap: 10px; 
+  }
+
+  .action-buttons .action-btn {
+    font-size: 14px;
+  }
+
+  .eis-data-container input {
+    font-size: 12px;
   }
 }
