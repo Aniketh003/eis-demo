@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import ModalComponent from "./ModalComponent";
-import { ModalContext } from "../context/ModalProvider";
+import { ModalContext } from "../../context/ModalProvider";
 
 const ModalContainer = () => {
   const modalContext = useContext(ModalContext);

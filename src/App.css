@@ -9,6 +9,10 @@ body{
   background-color: #faf9f6;
 }
 
+.hidden{
+  display: none;
+}
+
 .table-container {
   width: 100%;
   min-height: auto;
@@ -333,6 +337,29 @@ button {
 .modal-container .filter-container-all .filter-buttons button.active {
   background-color: #000000;
   color: #ffffff;
+}
+
+.eis-data-container{
+  display: flex;
+  gap: 10px;
+}
+
+.eis-data-container .action-btn{
+  font-size: 12px;
+}
+
+.pagination{
+  padding: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eis-data-container input{
+  width: 100%;
+  padding: 4px 5px;
+  text-wrap: wrap;
+  font-size: 14px;
 }
 
 @media only screen and (max-width: 600px) {

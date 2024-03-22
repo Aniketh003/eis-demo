@@ -1,10 +1,10 @@
 import { Popover, TableCell, TableRow, Typography } from "@mui/material";
-import CompleteBadge from "./CompleteBadge";
-import FailedBadge from "./FailedBadge";
-import { Batch } from "../model/JobModel";
+import CompleteBadge from "../Badges/CompleteBadge";
+import FailedBadge from "../Badges/FailedBadge";
+import { Batch } from "../../model/JobModel";
 import { useContext, useState } from "react";
-import RunningBadge from "./RunningBadge";
-import { JobContext } from "../context/JobDataProvider";
+import RunningBadge from "../Badges/RunningBadge";
+import { JobContext } from "../../context/JobDataProvider";
 
 interface TableRowContainerProps {
   batch: Batch;
@@ -28,8 +28,8 @@ function ModalRowContainer({
     const hr = Math.abs(endTime.getHours() - startTime.getHours());
     const min = Math.abs(endTime.getMinutes() - startTime.getMinutes());
     const sec = Math.abs(endTime.getSeconds() - startTime.getSeconds());
-    return `${hr > 12 ? hr : "0" + hr}:${min > 10 ? min : "0" + min}:${
-      sec > 10 ? sec : "0" + sec
+    return `${hr > 12 ? hr : "0" + hr}:${min >= 10 ? min : "0" + min}:${
+      sec >= 10 ? sec : "0" + sec
     }`;
   };
 
@@ -64,7 +64,7 @@ function ModalRowContainer({
   }
 
   return (
-    <TableRow  style={{ cursor: "pointer" }}>
+    <TableRow>
       <TableCell>{getJobName(job_NAME)}</TableCell>
       <TableCell>{start_Time.substring(0, 11)}</TableCell>
       <TableCell>

@@ -1,9 +1,9 @@
 import { Popover, TableCell, TableRow, Typography } from "@mui/material";
-import CompleteBadge from "./CompleteBadge";
-import FailedBadge from "./FailedBadge";
-import { Batch } from "../model/JobModel";
+import CompleteBadge from "../Badges/CompleteBadge";
+import FailedBadge from "../Badges/FailedBadge";
+import { Batch } from "../../model/JobModel";
 import { useContext, useState } from "react";
-import { ModalContext } from "../context/ModalProvider";
+import { ModalContext } from "../../context/ModalProvider";
 
 interface TableRowContainerProps {
   batch: Batch[];

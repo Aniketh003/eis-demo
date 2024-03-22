@@ -6,7 +6,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import TableHeadContainer from "./TableHead";
-import { Batch } from "../model/JobModel";
+import { Batch } from "../../model/JobModel";
 import ImportRowContainer from "./ImportRowContainer";
 import CoreRowContainer from "./CoreRowContainer";
 

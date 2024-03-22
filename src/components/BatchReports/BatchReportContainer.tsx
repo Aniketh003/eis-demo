@@ -1,6 +1,6 @@
 import { Popover, TableCell, TableRow, Typography } from "@mui/material";
 import { useState } from "react";
-import { BatchReport } from "../model/Report";
+import { BatchReport } from "../../model/Report";
 import BatchReportStatusButtons from "./BatchReportStatusButtons";
 
 interface BatchReportContainerProps {
