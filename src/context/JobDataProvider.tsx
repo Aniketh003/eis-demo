@@ -5,10 +5,10 @@ interface JobDataProps {
   handleRerunData: (executionId: string) => void;
   dataChange: boolean;
   setDataChange: React.Dispatch<React.SetStateAction<boolean>>;
-  importBatches:Batch[],
-  coreBatches:Batch[],
-  fetchImportBatches:() => Batch[],
-  fetchCoreBatches:() => Batch[]
+  importBatches: Batch[];
+  coreBatches: Batch[];
+  fetchImportBatches: () => Batch[];
+  fetchCoreBatches: () => Batch[];
 }
 
 export const JobContext = createContext<JobDataProps>();
@@ -24,19 +24,19 @@ const JobProvider: React.FC<JobProviderProps> = ({ children }) => {
 
   const fetchImportBatches = () => {
     const data = fetch("http://localhost:8080/batch-jobs/import-jobs")
-    .then((res) => res.json())
-    .then((res) => setImportBatches(res));
-    console.log("Fetched")
+      .then((res) => res.json())
+      .then((res) => setImportBatches(res));
+    console.log("Fetched");
     return importBatches;
-  }
+  };
 
   const fetchCoreBatches = () => {
     const data = fetch("http://localhost:8080/batch-jobs/core-jobs")
-    .then((res) => res.json())
-    .then((res) => setCoreBatches(res));
+      .then((res) => res.json())
+      .then((res) => setCoreBatches(res));
 
     return coreBatches;
-  }
+  };
 
   const handleRerunData = (executionId: string) => {
     fetch(`http://localhost:8080/batch-jobs/rerun?exeId=${executionId}`, {
@@ -67,7 +67,7 @@ const JobProvider: React.FC<JobProviderProps> = ({ children }) => {
     importBatches,
     coreBatches,
     fetchCoreBatches,
-    fetchImportBatches
+    fetchImportBatches,
   };
 
   return (
