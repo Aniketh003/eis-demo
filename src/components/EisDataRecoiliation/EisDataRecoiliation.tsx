@@ -56,7 +56,6 @@ const EisDataRecoiliation = () => {
 
   const dataModal = response.split(",");
   const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
 
   const handlePopOverClose = () => {
     setAnchorEl(null);
@@ -65,10 +64,6 @@ const EisDataRecoiliation = () => {
 
   const handlePopOverClick = (event) => {
     setAnchorEl(event.currentTarget);
-    setChecked((prev) => !prev);
-  };
-
-  const handleChange = () => {
     setChecked((prev) => !prev);
   };
 
@@ -89,7 +84,7 @@ const EisDataRecoiliation = () => {
             {tableHeader.map((e, index) => (
               <TableRow key={index}>
                 <TableCell>{e}</TableCell>
-                <TableCell align="center"></TableCell>
+                <TableCell align="center">0</TableCell>
                 <TableCell align="center">
                   <button className="action-btn">Download Report</button>
                 </TableCell>
