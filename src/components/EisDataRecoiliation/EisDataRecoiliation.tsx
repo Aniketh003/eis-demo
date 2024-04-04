@@ -1,17 +1,13 @@
+import { useState } from "react";
 import {
-  Box,
-  Modal,
   Paper,
-  Slide,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from "@mui/material";
-import { useState } from "react";
 
 const tableHeader = [
   "CMF count in EIS and CMF count in Finance stage",
@@ -31,114 +27,105 @@ const tableHeader = [
 ];
 
 const inputPlaceHolders = [
-  "Get all stores by partynumber/store id",
-  "Get all logons associated to a CMF by CMF number",
-  "Get logon CMF by logon name and Cnumber",
-  "Return all stores connected by Cnumber",
-  "Get all franchisees in Brand OEM stage/EIS by storeId/partyNumber",
+  { title: "Stores by partynumber/store id", placeholder: "Get all stores by partynumber/store id" },
+  { title: "Logons associated to a CMF by CMF number", placeholder: "Get all logons associated to a CMF by CMF number" },
+  { title: "CMF by logon name and Cnumber", placeholder: "Get logon CMF by logon name and Cnumber" },
+  { title: "Stores connected by Cnumber", placeholder: "Return all stores connected by Cnumber" },
+  { title: "Franchisees in Brand OEM stage/EIS by storeId/partyNumber", placeholder: "Get all franchisees in Brand OEM stage/EIS by storeId/partyNumber" },
 ];
-
-const style = {
-  position: "absolute" as "absolute",
-  bottom: 20,
-  right: 30,
-  width: "fit-content",
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-};
 
 const response =
   "AM-FI:76068005,AM-A:76068005,AM-I:76068005,GRV-FI:76068005,AM-SL:76068005,AM-CM:76068005,AM-S:76068005,AM-V:76068005,GRV-S:76068005,ACDB2:76068005,AM-P:76068005";
+
 const EisDataRecoiliation = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [checked, setChecked] = useState(false);
+  const [inputValues, setInputValues] = useState(Array(inputPlaceHolders.length).fill(""));
+  const [text,setText]  = useState("");
+  const [result, setResult] = useState("");
+  const [resultTitle, setResultTitle] = useState("");
 
-  const dataModal = response.split(",");
-  const open = Boolean(anchorEl);
-
-  const handlePopOverClose = () => {
-    setAnchorEl(null);
-    setChecked((prev) => !prev);
+  const handleInputChange = (index:number, value:string) => {
+    const newInputValues = [...inputValues];
+    newInputValues[index] = value;
+    setInputValues(newInputValues);
   };
 
-  const handlePopOverClick = (event) => {
-    setAnchorEl(event.currentTarget);
-    setChecked((prev) => !prev);
+  const setResultResponse = (title:string, result:string, index:number) => {
+    setResult(result);
+    setResultTitle(title);
+    setText(inputValues[index]);
   };
 
   return (
     <div className="eis-data-container">
-      <TableContainer component={Paper} style={{ borderRadius: "10px" }}>
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell sx={{ width: "65%" }}>Description</TableCell>
-              <TableCell align="center">Count</TableCell>
-              <TableCell align="center" sx={{ width: "25%" }}>
-                Action
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {tableHeader.map((e, index) => (
-              <TableRow key={index}>
-                <TableCell>{e}</TableCell>
-                <TableCell align="center">0</TableCell>
-                <TableCell align="center">
-                  <button className="action-btn">Download Report</button>
+      <div className="count-table">
+        <TableContainer component={Paper} style={{ borderRadius: "10px" }}>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell sx={{ width: "65%" }}>Description</TableCell>
+                <TableCell align="center">Count</TableCell>
+                <TableCell align="center" sx={{ width: "25%" }}>
+                  Action
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TableContainer
-        component={Paper}
-        style={{ borderRadius: "10px", height: "fit-content" }}
-      >
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell sx={{ width: "80%" }}>Description</TableCell>
-              <TableCell></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {inputPlaceHolders.map((e, index) => (
-              <TableRow key={index}>
-                <TableCell>
-                  <input type="text" placeholder={e} />
-                </TableCell>
-                <TableCell>
-                  <button className="action-btn" onClick={handlePopOverClick}>
-                    search
-                  </button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-        <Modal
-          open={open}
-          onClose={handlePopOverClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+            </TableHead>
+            <TableBody>
+              {tableHeader.map((e, index) => (
+                <TableRow key={index}>
+                  <TableCell>{e}</TableCell>
+                  <TableCell align="center">0</TableCell>
+                  <TableCell align="center">
+                    <button className="action-btn">Download Report</button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
+      <div className="right-container">
+        <TableContainer
+          component={Paper}
+          style={{ borderRadius: "10px", height: "fit-content" }}
         >
-          <Slide direction="left" in={checked}>
-            <Box sx={style}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                Text in a modal
-              </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                {dataModal.map((e, index) => (
-                  <p key={index}>{e}</p>
-                ))}
-              </Typography>
-            </Box>
-          </Slide>
-        </Modal>
-      </TableContainer>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell sx={{ width: "80%" }}>Description</TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {inputPlaceHolders.map((e, index) => (
+                <TableRow key={index}>
+                  <TableCell>
+                    <input 
+                      type="text" 
+                      placeholder={e.placeholder} 
+                      value={inputValues[index]} 
+                      onChange={(e) => handleInputChange(index, e.target.value)}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <button
+                      className="action-btn"
+                      onClick={() => setResultResponse(e.title, response, index)}
+                    >
+                      search
+                    </button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        {result && (
+          <div className="result-container">
+            <h3>{resultTitle} : {text}</h3>
+            <p>{result}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
