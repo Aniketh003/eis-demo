@@ -56,8 +56,7 @@ const JobProvider: React.FC<JobProviderProps> = ({ children }) => {
       const response = await axiosInstance.post("/batch-jobs/rerun", {
         exeId: executionId,
       });
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const contextValue: JobDataProps = {
