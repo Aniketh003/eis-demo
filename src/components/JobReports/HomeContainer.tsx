@@ -38,7 +38,6 @@ const HomeContainer:React.FC<HomeContainerProps> = ({importBatches,coreBatches}:
         count++;
       }
     });
-
     return count;
   };
 

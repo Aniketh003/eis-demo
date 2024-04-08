@@ -1,9 +1,11 @@
 import { useContext, useEffect } from "react";
 import ModalComponent from "./ModalComponent";
 import { ModalContext } from "../../context/ModalProvider";
+import { useTheme } from "@mui/material/styles";
 
 const ModalContainer = () => {
   const modalContext = useContext(ModalContext);
+  const theme = useTheme();
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -20,12 +22,12 @@ const ModalContainer = () => {
   }, [modalContext?.modalOpen]);
 
   return (
-    <div className={`${modalContext?.modalOpen && `open`} modal`}>
+    <div className={`${modalContext?.modalOpen && `open`} modal  ${theme.palette.mode === "dark" && "dark"}`}>
       <div className="close-btn">
         <button onClick={modalContext?.closeModal}>X</button>
       </div>
       <div
-        className="modal-background"
+        className={`modal-background ${theme.palette.mode === "dark" && "dark"}`}
       >
         <ModalComponent />
       </div>

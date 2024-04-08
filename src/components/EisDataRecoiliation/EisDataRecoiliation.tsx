@@ -7,6 +7,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  useTheme,
 } from "@mui/material";
 
 const tableHeader = [
@@ -38,6 +39,7 @@ const response =
   "AM-FI:76068005,AM-A:76068005,AM-I:76068005,GRV-FI:76068005,AM-SL:76068005,AM-CM:76068005,AM-S:76068005,AM-V:76068005,GRV-S:76068005,ACDB2:76068005,AM-P:76068005";
 
 const EisDataRecoiliation = () => {
+  const theme = useTheme();
   const [inputValues, setInputValues] = useState(Array(inputPlaceHolders.length).fill(""));
   const [text,setText]  = useState("");
   const [result, setResult] = useState("");
@@ -111,7 +113,7 @@ const EisDataRecoiliation = () => {
                       className="action-btn"
                       onClick={() => setResultResponse(e.title, response, index)}
                     >
-                      search
+                      Search
                     </button>
                   </TableCell>
                 </TableRow>
@@ -120,7 +122,10 @@ const EisDataRecoiliation = () => {
           </Table>
         </TableContainer>
         {result && (
-          <div className="result-container">
+          <div className={`result-container ${theme.palette.mode === "dark" && "dark"}`}>
+            <div className="close-btn">
+              <button onClick={() => setResult("")}>X</button>
+            </div>
             <h3>{resultTitle} : {text}</h3>
             <p>{result}</p>
           </div>

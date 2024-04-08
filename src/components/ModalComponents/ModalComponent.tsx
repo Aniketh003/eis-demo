@@ -33,7 +33,7 @@ const ModalComponent = () => {
   ) => {
     try {
       const response = await axiosInstance.get(
-        `http://localhost:8080/batch-jobs/pagination/${status}?jobName=${modalContext?.batchName}&page=${page}&size=${rowsPerPage}`
+        `/batch-jobs/pagination/${status}?jobName=${modalContext?.batchName}&page=${page}&size=${rowsPerPage}`
       );
       setData(response.data.content);
       setTotal(response.data.totalPages);
@@ -51,7 +51,7 @@ const ModalComponent = () => {
       if (date !== "") {
         axiosInstance
           .get(
-            `http://localhost:8080/batch-jobs/getJob?jobName=${modalContext?.batchName}&date=${date}`
+            `/batch-jobs/getJob?jobName=${modalContext?.batchName}&date=${date}`
           )
           .then((res) => res.data)
           .then((res) => setDateData(res));

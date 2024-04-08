@@ -9,13 +9,13 @@ import { BrowserRouter } from "react-router-dom";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
-    <BatchReportProvider>
-      <JobProvider>
-        <ModalProvider>
-          <App />
-        </ModalProvider>
-      </JobProvider>
-    </BatchReportProvider>
+      <BatchReportProvider>
+        <JobProvider>
+          <ModalProvider>
+            <App />
+          </ModalProvider>
+        </JobProvider>
+      </BatchReportProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

@@ -5,8 +5,9 @@
   font-family: poppins;
 }
 
-body{
-  background-color: #faf9f6;
+.dark{
+  background-color: #101418;
+  color: #faf9f6;
 }
 
 .hidden{
@@ -54,6 +55,22 @@ button {
 
 .main-container {
   padding: 30px 80px;
+  background-color: #faf9f6;
+}
+
+.main-container.dark{
+  background-color: #101418;
+}
+
+.main-container .navbar-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+}
+
+.main-container .navbar-container .dark-mode-toggle{
+  margin-right: 100px;
 }
 
 .main-container .navbar {
@@ -67,12 +84,18 @@ button {
 .main-container .navbar button {
   font-size: 18px;
   padding: 12px 0;
-  color: rgb(136, 135, 135);
   background-color: #faf9f6;
-  border-bottom: 2px solid #faf9f6;
+  border-bottom: 2px solid transparent;
 }
+
+.main-container .navbar button.dark{
+  background-color: #101418;
+  color: #faf9f6;
+}
+
 .batch-report-container {
   display: flex;
+  height: 79vh;
   flex-direction: column;
   gap: 50px;
 }
@@ -92,6 +115,7 @@ button {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
+
 .batch-report-container .search-box input:focus {
   outline: none;
 }
@@ -117,6 +141,11 @@ button {
 .main-container .navbar button.active {
   border-bottom: 2px solid black;
   color: #000000;
+}
+
+.main-container .navbar button.active.dark{
+  color: #faf9f6;
+  border-bottom: 2px solid #fff;
 }
 
 .success-badge {
@@ -177,6 +206,9 @@ button {
   width: 10px;
   border-radius: 50%;
 }
+.running-badge.dark p{
+  color: #000;
+}
 
 .running-badge .dot {
   height: 10px;
@@ -218,10 +250,14 @@ button {
   display: none;
 }
 
+.modal-background.dark{
+  background-color: #101418;
+}
+
 .modal-background {
-  background-color: #fff;
   width: 95%;
   border-radius: 10px;
+  background-color: #fff;
   height: 100%;
   overflow-y: auto;
   display: flex;
@@ -369,7 +405,7 @@ button {
 .eis-data-container .result-container{
   padding: 20px;
   border-radius: 10px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
 }
 
 .eis-data-container .result-container h3{
@@ -387,6 +423,22 @@ button {
   padding: 6px;
   border-radius: 5px;
   border: 1px solid gray;
+}
+
+.eis-data-container .result-container .close-btn{
+  width: 100%;
+  display: flex;
+  align-items: end;
+  justify-content: end;
+}
+
+.eis-data-container .result-container .close-btn button{
+  border: none;
+  background-color: #000000;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 8px;
+  font-size: 16px;
 }
 
 @media only screen and (max-width: 600px) {
