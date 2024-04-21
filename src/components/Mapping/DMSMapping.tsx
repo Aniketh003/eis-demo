@@ -13,7 +13,6 @@ import {
 import axiosInstance from "../../context/axios";
 import { toast } from "react-toastify";
 import CompleteBadge from "../Badges/CompleteBadge";
-import FailedBadge from "../Badges/FailedBadge";
 
 interface EntityData {
   entityValue: string;
@@ -62,7 +61,6 @@ const DMSMapping = () => {
 
   const handleRunAll = async () => {
     const updatedStatusMap: Record<string, string> = { ...statusMap };
-
     try {
       await Promise.all(
         jsonData.map(async (element) => {

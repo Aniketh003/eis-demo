@@ -1,21 +1,20 @@
 import React, { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
+import { useDropzone, DropzoneOptions, DropzoneRootProps, DropzoneInputProps } from "react-dropzone";
 import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 import CloudDoneOutlinedIcon from "@mui/icons-material/CloudDoneOutlined";
 import CloudOffOutlinedIcon from "@mui/icons-material/CloudOffOutlined";
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
 
-interface DropZoneProps{
-    setMainFile:React.Dispatch<React.SetStateAction<null>>;
+interface DropZoneProps {
+    setMainFile: React.Dispatch<React.SetStateAction<File | null>>;
 }
 
-const DropZone:React.FC<DropZoneProps> = ({setMainFile}) => {
+const DropZone: React.FC<DropZoneProps> = ({ setMainFile }) => {
     const [file, setFile] = useState<File | null>(null);
     const [isFileAdded, setIsFileAdded] = useState<boolean>(false);
     const [fileSizeMB, setFileSizeMB] = useState<number>(0);
 
-
-    const onDrop = useCallback((acceptedFiles) => {
+    const onDrop = useCallback((acceptedFiles: File[]) => {
         if (acceptedFiles.length > 0) {
             const selectedFile = acceptedFiles[0];
             const fileSizeInBytes = selectedFile.size;
@@ -26,13 +25,18 @@ const DropZone:React.FC<DropZoneProps> = ({setMainFile}) => {
         }
     }, []);
 
-    const { getRootProps, getInputProps, isDragActive, isDragAccept } = useDropzone({
+    const { getRootProps, getInputProps, isDragActive, isDragAccept }: {
+        getRootProps: (props?: DropzoneRootProps) => DropzoneRootProps;
+        getInputProps: (props?: DropzoneInputProps) => DropzoneInputProps;
+        isDragActive: boolean;
+        isDragAccept: boolean;
+    } = useDropzone({
         onDrop,
         accept: {
             "text/csv": [".csv"],
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [".xlsx"]
         },
-        disabled: isFileAdded, 
+        disabled: isFileAdded,
         multiple: false,
     });
 
@@ -84,8 +88,8 @@ const DropZone:React.FC<DropZoneProps> = ({setMainFile}) => {
                             <p>Size: {fileSizeMB.toFixed(2)} MB</p>
                         </div>
                         <div className="action-btns">
-                        <button onClick={selectAnotherFile}>Back</button>
-                        <button onClick={() => setMainFile(file)}>Next</button>
+                            <button onClick={selectAnotherFile}>Back</button>
+                            <button onClick={() => setMainFile(file)}>Next</button>
                         </div>
                     </div>
                 )}
