@@ -33,6 +33,12 @@ const Navbar: React.FC<NavbarProps> = ({ setSelectVisible, selectVisible }) => {
         >
           EIS Data Reconciliation
         </button>
+        <button
+          onClick={() => setSelectVisible("Mapping")}
+          className={`${selectVisible === "Mapping" && "active"} ${theme.palette.mode === "dark" && "dark"}`}
+        >
+          DMS & Department Mapping
+        </button>
       </div>
       <div className="dark-mode-toggle">
         <IconButton

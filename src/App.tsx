@@ -9,6 +9,8 @@ import "react-toastify/dist/ReactToastify.css";
 import EisDataRecoiliation from "./components/EisDataRecoiliation/EisDataRecoiliation";
 import Navbar from "./components/JobReports/Navbar";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import MappingContainer from "./components/Mapping/MappingContainer";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const [selectVisible, setSelectVisible] = useState<string>("Home");
@@ -21,9 +23,8 @@ function App() {
     fetchCoreBatches();
   }, []);
 
-  const [mode, setMode] = useState('light');
+  const [mode, setMode] = useState("light");
 
-  console.log(mode)
   const theme = useMemo(
     () =>
       createTheme({
@@ -31,14 +32,16 @@ function App() {
           mode: mode,
         },
         toggleColorMode: () => {
-          setMode(prevMode => (prevMode === 'light' ? 'dark' : 'light'));
+          setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
         },
       }),
     [mode]
   );
 
   return (
-    <div className={`main-container ${theme.palette.mode === "dark" && "dark"}`} >
+    <div
+      className={`main-container ${theme.palette.mode === "dark" && "dark"}`}
+    >
       <ThemeProvider theme={theme}>
         <Navbar
           selectVisible={selectVisible}
@@ -65,9 +68,15 @@ function App() {
           >
             <EisDataRecoiliation />
           </div>
+          <div
+            className={`container ${selectVisible !== "Mapping" && "hidden"}`}
+          >
+            <MappingContainer />
+          </div>
         </div>
         {modalOpen && <ModalContainer />}
       </ThemeProvider>
+      <ToastContainer/>
     </div>
   );
 }
