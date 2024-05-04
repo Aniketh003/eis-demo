@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { useDropzone, DropzoneOptions, DropzoneRootProps, DropzoneInputProps } from "react-dropzone";
+import { useDropzone, DropzoneRootProps, DropzoneInputProps } from "react-dropzone";
 import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 import CloudDoneOutlinedIcon from "@mui/icons-material/CloudDoneOutlined";
 import CloudOffOutlinedIcon from "@mui/icons-material/CloudOffOutlined";
@@ -42,6 +42,7 @@ const DropZone: React.FC<DropZoneProps> = ({ setMainFile }) => {
 
     const selectAnotherFile = () => {
         setFile(null);
+        setMainFile(null)
         setIsFileAdded(false);
     }
 
@@ -88,7 +89,7 @@ const DropZone: React.FC<DropZoneProps> = ({ setMainFile }) => {
                             <p>Size: {fileSizeMB.toFixed(2)} MB</p>
                         </div>
                         <div className="action-btns">
-                            <button onClick={selectAnotherFile}>Back</button>
+                            <button onClick={selectAnotherFile}>Delete</button>
                             <button onClick={() => setMainFile(file)}>Next</button>
                         </div>
                     </div>

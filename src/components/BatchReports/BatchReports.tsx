@@ -7,16 +7,15 @@ import { BatchReportContext } from "../../context/BatchReportProvider";
 const BatchReports = () => {
   const { getBatchReports, data } = useContext(BatchReportContext);
   const [search, setSearch] = useState("");
+  const [resData, setResData] = useState([])
   const [error, setError] = useState("Search by Party Number or CSID Number");
 
-  const handleSearch = () => {
-    if (search !== "") {
-      getBatchReports(search);
-      if (data.length === 0) {
-        setError(`No data found for CSID/Party number ${search}`);
-      }
+  const handleSearch = async () => {
+    if (search) {
+      await getBatchReports(search);
+      setResData(data)
+      console.log(resData)
     }
-
     setSearch("");
   };
 

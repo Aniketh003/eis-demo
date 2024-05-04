@@ -9,18 +9,26 @@ import "react-toastify/dist/ReactToastify.css";
 import EisDataRecoiliation from "./components/EisDataRecoiliation/EisDataRecoiliation";
 import Navbar from "./components/JobReports/Navbar";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import MappingContainer from "./components/Mapping/MappingContainer";
+import MappingContainer from "./components/Mapping/BulkContainer";
 import { ToastContainer } from "react-toastify";
+import { ContributorsModalContext } from "./context/ContibutorsProvider";
+import ContributorsContainer from "./components/Contributors/ContributorsContainer";
 
 function App() {
   const [selectVisible, setSelectVisible] = useState<string>("Home");
   const { importBatches, coreBatches, fetchImportBatches, fetchCoreBatches } =
     useContext(JobContext);
   const { modalOpen } = useContext(ModalContext);
+  const Contributorsmodal = useContext(ContributorsModalContext);
 
   useEffect(() => {
     fetchImportBatches();
     fetchCoreBatches();
+    const navLink = localStorage.getItem("nav-link")
+    if (navLink === null)
+      setSelectVisible("Home");
+    else
+      setSelectVisible(navLink)
   }, []);
 
   const [mode, setMode] = useState("light");
@@ -55,28 +63,27 @@ function App() {
             />
           </div>
           <div
-            className={`container ${
-              selectVisible !== "BatchReports" && "hidden"
-            }`}
+            className={`container ${selectVisible !== "BatchReports" && "hidden"
+              }`}
           >
             <BatchReports />
           </div>
           <div
-            className={`container ${
-              selectVisible !== "EisDataReconciliation" && "hidden"
-            }`}
+            className={`container ${selectVisible !== "EisDataReconciliation" && "hidden"
+              }`}
           >
             <EisDataRecoiliation />
           </div>
           <div
-            className={`container ${selectVisible !== "Mapping" && "hidden"}`}
+            className={`container ${selectVisible !== "BulkOperations" && "hidden"}`}
           >
             <MappingContainer />
           </div>
         </div>
         {modalOpen && <ModalContainer />}
+        {Contributorsmodal?.modalOpen && <ContributorsContainer />}
       </ThemeProvider>
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 }

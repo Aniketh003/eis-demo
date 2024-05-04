@@ -5,6 +5,7 @@ import ModalProvider from "./context/ModalProvider.tsx";
 import JobProvider from "./context/JobDataProvider.tsx";
 import BatchReportProvider from "./context/BatchReportProvider.tsx";
 import { BrowserRouter } from "react-router-dom";
+import ContributorsModalProvider from "./context/ContibutorsProvider.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -12,7 +13,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <BatchReportProvider>
         <JobProvider>
           <ModalProvider>
+            <ContributorsModalProvider>
             <App />
+            </ContributorsModalProvider>
           </ModalProvider>
         </JobProvider>
       </BatchReportProvider>

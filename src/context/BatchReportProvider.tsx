@@ -2,7 +2,7 @@ import { ReactNode, createContext, useState } from "react";
 import { BatchReport } from "../model/Report";
 import axiosInstance from "./axios";
 
-interface BatchReportProps {
+export interface BatchReportProps {
   getBatchReports: (search: string) => void;
   data: BatchReport[];
 }
@@ -19,10 +19,9 @@ const BatchReportProvider = ({ children }: BatchProviderProps) => {
 
   const getBatchReports = async (search: string) => {
     try {
-      const response = await axiosInstance.get(`batch-reports/?identifier=${search}`);
-      setData(response.data);
+      const response = await axiosInstance.get(`batch-reports/?identifier=${search}`).then((res) => setData(res.data))
     } catch (error) {
-      console.error("Error fetching batch reports:", error);
+      console.log();
     }
   };
 
